@@ -2,6 +2,9 @@ import React, { ReactNode } from "react";
 import customGridSchema from "../schemas/custom-grid-schema";
 import CustomGridItemBig from "./CustomGridItemBig";
 import CustomGridItemSmall from "./CustomGridItemSmall";
+import { useCssHandles } from 'vtex.css-handles'
+import './styles.css'
+
 
 type Props = {
   gridType: number,
@@ -9,10 +12,15 @@ type Props = {
 }
 
 const CustomGrid = ({gridType = 1, children}: Props) => {
-  console.log("Childrens:", children);
+
+  console.log(gridType);
+  const gridTypeClass = `grid__${gridType}`
+
+  const CSS_HANDLES = [gridTypeClass]
+  const handles = useCssHandles(CSS_HANDLES)
+
   return(
-    <>
-      <div>Custom Grid {gridType}</div>
+    <div className={handles[gridTypeClass]}>
       <CustomGridItemBig
         element = {children[0]}
       />
@@ -24,8 +32,7 @@ const CustomGrid = ({gridType = 1, children}: Props) => {
         elementOne = {children[3]}
         elementTwo = {children[4]}
       />
-      {children}
-    </>
+    </div>
   )
 }
 
